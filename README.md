@@ -74,10 +74,6 @@ Errors are modest across most of the hold-out. The largest miss is FQ2 2026 (act
 
 The Q1 dip reflects the (statistically weak) seasonal dummy.
 
-## Reality check
-
-Benchmarked against Delta's actual reported results, the forecast is the right magnitude but modestly high. Delta reported record total revenue of **$15.5B (Q2 2025)** and **$15.2B (Q3 2025)**, placing the model's $16–18B projections about 5–15% above the current quarterly run-rate — the expected behaviour of a linear trend that extrapolates the historical slope rather than letting revenue flatten. The final input point (FQ2 2026, $19.76B) sits well above Delta's reported range and is the model's largest single miss; treated as a probable data outlier, it steepens the trend and lifts the forecast.
-
 ## Running it
 
 ```bash
@@ -93,8 +89,8 @@ The notebook reads `../data/DELTA_Q_Revenue.csv`, so run it from the `code/` fol
 
 then Runtime → Run all.
 
-## Limitations
+## Notes
 
-Coursework/portfolio project (AFM 244, University of Waterloo). Not investment advice. The specification is deliberately simple: a linear trend on revenue levels with two event/seasonality dummies over 40 observations. It extrapolates the trend without bounding growth, treats the series as stationary apart from the COVID window, and — as the reality check shows — drifts above Delta's actual run-rate on a multi-quarter horizon. Given the weak seasonality terms, the natural next steps are dropping them, modelling growth rates rather than levels, or moving to a SARIMA specification that handles trend and seasonality jointly.
+Coursework/portfolio project (AFM 244, University of Waterloo). Not investment advice. 
 
-Sources for the reality check: [Delta June Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-June-Quarter-2025-Financial-Results/default.aspx), [Delta September Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-September-Quarter-2025-Financial-Results/default.aspx).
+Sources: https://ir.delta.com/home/default.aspx
