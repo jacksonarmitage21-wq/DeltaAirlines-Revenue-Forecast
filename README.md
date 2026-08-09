@@ -1,7 +1,17 @@
-# DeltaAirlines-Revenue-Forecast
-# Delta Airlines Quarterly Revenue Forecast
+# Delta Air Lines Quarterly Revenue Forecast
 
 An OLS time-series model that forecasts Delta Air Lines (NYSE: DAL) quarterly total revenue, built in Python with `pandas` and `statsmodels`. The model fits a linear time trend on revenue levels with COVID and Q1-seasonality dummies (plus interaction terms), validates on a 25% hold-out, and projects the next four quarters (2026 Q3 – 2027 Q2).
+
+## Repository layout
+
+```
+DeltaAirlines-Revenue-Forecast/
+├── code/
+│   └── DeltaAirlines_Revenue_Forecast.ipynb
+├── data/
+│   └── DELTA_Q_Revenue.csv
+└── README.md
+```
 
 ## Data
 
@@ -64,6 +74,10 @@ Errors are modest across most of the hold-out; the largest miss is FQ2 2026 (act
 
 The Q1 dip reflects the (statistically weak) seasonal dummy.
 
+## Reality check
+
+Against Delta's actual reported results, the forecast is the right order of magnitude but runs slightly hot. Delta posted record total revenue of **$15.5B in Q2 2025** and **$15.2B in Q3 2025**, so the model's $16–18B projections sit roughly 5–15% above the company's current quarterly run-rate — the expected behaviour of a linear trend that extrapolates the historical slope without allowing revenue to plateau. Worth flagging: the final input point (FQ2 2026 = $19.76B) is well above Delta's ~$15.5–16B actuals and is the model's largest miss, so it's worth verifying against the source filing, as an outlier there steepens the trend and lifts the whole forecast.
+
 ## Workflow
 
 1. Load and rename the raw CSV.
@@ -81,8 +95,17 @@ The Q1 dip reflects the (statistically weak) seasonal dummy.
 pip install pandas numpy matplotlib statsmodels
 ```
 
-Open in Jupyter or Colab, place `DELTA_Q_Revenue.csv` in the working directory, and run cells top to bottom.
+The notebook reads `../data/DELTA_Q_Revenue.csv`, so run it from the `code/` folder with the CSV in `data/`. Locally: open `code/DeltaAirlines_Revenue_Forecast.ipynb` in Jupyter and run top to bottom. In Colab, open it from the GitHub tab and add a cell at the top:
+
+```python
+!git clone https://github.com/jacksonarmitage21-wq/DeltaAirlines-Revenue-Forecast.git
+%cd DeltaAirlines-Revenue-Forecast/code
+```
+
+then Runtime → Run all.
 
 ## Caveats
 
 Coursework/portfolio project (AFM 244, University of Waterloo). Not investment advice. A linear-trend OLS on 40 observations is a teaching model: it extrapolates a trend on revenue levels, doesn't bound growth, and treats the sample as stationary apart from the two dummies. The insignificant seasonality terms suggest the specification could be simplified.
+
+Sources for the reality check: [Delta June Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-June-Quarter-2025-Financial-Results/default.aspx), [Delta September Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-September-Quarter-2025-Financial-Results/default.aspx).
