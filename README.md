@@ -1,5 +1,5 @@
 # DeltaAirlines-Revenue-Forecast
-# Delta Air Lines Quarterly Revenue Forecast
+# Delta Airlines Quarterly Revenue Forecast
 
 An OLS time-series model that forecasts Delta Air Lines (NYSE: DAL) quarterly total revenue, built in Python with `pandas` and `statsmodels`. The model fits a linear time trend on revenue levels with COVID and Q1-seasonality dummies (plus interaction terms), validates on a 25% hold-out, and projects the next four quarters (2026 Q3 – 2027 Q2).
 
