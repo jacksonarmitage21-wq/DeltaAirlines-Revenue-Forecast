@@ -1,6 +1,6 @@
 # Delta Air Lines Quarterly Revenue Forecast
 
-An OLS time-series model that forecasts Delta Air Lines (NYSE: DAL) quarterly total revenue, built in Python with `pandas` and `statsmodels`. The model fits a linear time trend on revenue levels with COVID and Q1-seasonality dummies (plus interaction terms), validates on a 25% hold-out, and projects the next four quarters (2026 Q3 – 2027 Q2).
+An OLS time-series model that forecasts Delta Air Lines (NYSE: DAL) quarterly total revenue, built in Python with `pandas` and `statsmodels`. It fits a linear time trend on revenue levels with COVID and Q1-seasonality dummies (plus interaction terms), validates on a 25% out-of-sample hold-out, benchmarks the result against Delta's actual reported revenue, and projects the next four quarters (2026 Q3 – 2027 Q2).
 
 ## Repository layout
 
@@ -55,13 +55,13 @@ Data is split 75/25 (30 train / 10 test). The model is fit on the training set, 
 
 **R² = 0.80, Adjusted R² = 0.76.**
 
-The trend and both COVID terms are highly significant. The base trend adds ~$0.19B/quarter; the COVID dummy drops the intercept sharply while its interaction partially offsets via a steeper recovery slope. Notably, **neither Q1 seasonality term is statistically significant** (p ≈ 0.91 and 0.69) — Delta's Q1 softness isn't cleanly captured by this dummy over the sample, though the terms are retained in the forecast.
+The trend and both COVID terms are highly significant. The base trend adds ~$0.19B/quarter; the COVID dummy drops the intercept sharply while its interaction partially offsets via a steeper recovery slope. Both Q1 seasonality terms are statistically insignificant (p ≈ 0.91 and 0.69) — Delta's Q1 softness isn't cleanly separated by a dummy over this sample. The terms are retained for the forecast but carry little weight, and the "Limitations" section notes the simpler specification they point toward.
 
 ## Validation (hold-out, 10 quarters)
 
 **RMSE = 1.01 ($B), MAPE = 4.32%.**
 
-Errors are modest across most of the hold-out; the largest miss is FQ2 2026 (actual $19.76B vs. predicted $17.14B, +$2.62B), where the model under-forecasts a strong quarter — consistent with a linear trend not keeping pace with recent revenue acceleration.
+Errors are modest across most of the hold-out. The largest miss is FQ2 2026 (actual $19.76B vs. predicted $17.14B, +$2.62B), where the model under-forecasts a strong quarter — consistent with a linear trend not keeping pace with recent revenue acceleration.
 
 ## Forecast (2026 Q3 – 2027 Q2)
 
@@ -74,16 +74,9 @@ Errors are modest across most of the hold-out; the largest miss is FQ2 2026 (act
 
 The Q1 dip reflects the (statistically weak) seasonal dummy.
 
-## Workflow
+## Reality check
 
-1. Load and rename the raw CSV.
-2. Convert `FQ# YYYY` labels to calendar quarter-end `Timestamp`s.
-3. Strip the `b` suffix and cast revenue to float.
-4. Plot the raw revenue series.
-5. Construct `time`, dummies, and interaction terms.
-6. Fit OLS on the training split; inspect `.summary()`.
-7. Score the hold-out on the full feature set.
-8. Forecast 2026 Q3 – 2027 Q2.
+Benchmarked against Delta's actual reported results, the forecast is the right magnitude but modestly high. Delta reported record total revenue of **$15.5B (Q2 2025)** and **$15.2B (Q3 2025)**, placing the model's $16–18B projections about 5–15% above the current quarterly run-rate — the expected behaviour of a linear trend that extrapolates the historical slope rather than letting revenue flatten. The final input point (FQ2 2026, $19.76B) sits well above Delta's reported range and is the model's largest single miss; treated as a probable data outlier, it steepens the trend and lifts the forecast.
 
 ## Running it
 
@@ -100,8 +93,8 @@ The notebook reads `../data/DELTA_Q_Revenue.csv`, so run it from the `code/` fol
 
 then Runtime → Run all.
 
-## Caveats
+## Limitations
 
-Coursework/portfolio project (AFM 244, University of Waterloo). Not investment advice. A linear-trend OLS on 40 observations is a teaching model: it extrapolates a trend on revenue levels, doesn't bound growth, and treats the sample as stationary apart from the two dummies. The insignificant seasonality terms suggest the specification could be simplified.
+Coursework/portfolio project (AFM 244, University of Waterloo). Not investment advice. The specification is deliberately simple: a linear trend on revenue levels with two event/seasonality dummies over 40 observations. It extrapolates the trend without bounding growth, treats the series as stationary apart from the COVID window, and — as the reality check shows — drifts above Delta's actual run-rate on a multi-quarter horizon. Given the weak seasonality terms, the natural next steps are dropping them, modelling growth rates rather than levels, or moving to a SARIMA specification that handles trend and seasonality jointly.
 
-Sources:https://ir.delta.com/home/default.aspx
+Sources for the reality check: [Delta June Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-June-Quarter-2025-Financial-Results/default.aspx), [Delta September Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-September-Quarter-2025-Financial-Results/default.aspx).
