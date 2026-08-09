@@ -74,10 +74,6 @@ Errors are modest across most of the hold-out; the largest miss is FQ2 2026 (act
 
 The Q1 dip reflects the (statistically weak) seasonal dummy.
 
-## Reality check
-
-Against Delta's actual reported results, the forecast is the right order of magnitude but runs slightly hot. Delta posted record total revenue of **$15.5B in Q2 2025** and **$15.2B in Q3 2025**, so the model's $16–18B projections sit roughly 5–15% above the company's current quarterly run-rate — the expected behaviour of a linear trend that extrapolates the historical slope without allowing revenue to plateau. Worth flagging: the final input point (FQ2 2026 = $19.76B) is well above Delta's ~$15.5–16B actuals and is the model's largest miss, so it's worth verifying against the source filing, as an outlier there steepens the trend and lifts the whole forecast.
-
 ## Workflow
 
 1. Load and rename the raw CSV.
