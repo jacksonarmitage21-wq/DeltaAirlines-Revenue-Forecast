@@ -104,4 +104,4 @@ then Runtime → Run all.
 
 Coursework/portfolio project (AFM 244, University of Waterloo). Not investment advice. A linear-trend OLS on 40 observations is a teaching model: it extrapolates a trend on revenue levels, doesn't bound growth, and treats the sample as stationary apart from the two dummies. The insignificant seasonality terms suggest the specification could be simplified.
 
-Sources for the reality check: [Delta June Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-June-Quarter-2025-Financial-Results/default.aspx), [Delta September Quarter 2025 results](https://ir.delta.com/news/news-details/2025/Delta-Air-Lines-Announces-September-Quarter-2025-Financial-Results/default.aspx).
+Sources:https://ir.delta.com/home/default.aspx
