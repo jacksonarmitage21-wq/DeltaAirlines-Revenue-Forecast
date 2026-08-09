@@ -93,6 +93,6 @@ then Runtime → Run all.
 
 Coursework/portfolio project (AFM 244, University of Waterloo). Not investment advice. 
 
-Sources: 
+## Sources: 
 https://ir.delta.com/home/default.aspx
 https://ca.finance.yahoo.com/quote/DAL/history/
